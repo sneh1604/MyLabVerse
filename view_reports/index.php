@@ -1,76 +1,102 @@
-<?php
-// Start the session at the very beginning
-session_start();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploaded Reports</title>
 
-// Replace these values with your actual database details
-$host = 'localhost';
-$username = 'root';
-$password = '';
-$database = 'odlms_db';
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-// Establish a database connection
-$conn = new mysqli($host, $username, $password, $database);
+    <!-- Include DataTables CSS and JS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
-// Check the connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+    <!-- Include Bootstrap CSS and JS (if you're using Bootstrap) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-// Function to fetch user reports from the database
-function fetch_user_reports($userID, $userName) {
-    global $conn; // Assuming you have a database connection variable
+</head>
+<body>
 
-    $reports = array();
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Uploaded Reports</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped" id="reportTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Client Name</th>
+                            <th>Test Name</th>
+                            <th>Date Created</th>
+                            <th>Report</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        require_once('C:\xampp\htdocs\odlms\view_reports\function.php');
+                        $i = 1;
+                        $qry = $conn->query("SELECT * FROM `upload_reports` WHERE client_id = '{$_settings->userdata('id')}' ORDER BY created_at DESC");
+                        while ($row = $qry->fetch_assoc()):
+                            // Fetch client and test names based on IDs
+                            $clientName = get_client_name_by_id($row['client_id']);
+                            $testName = get_test_name_by_id($row['test_id']);
+                        ?>
+                            <tr>
+                                <td class="text-center"><?= $i++; ?></td>
+                                <td class=""><?= $clientName ?></td>
+                                <td class=""><p class="m-0 truncate-1"><?= $testName ?></p></td>
+                                <td class=""><?= $row['created_at'] ?></td>
+                                <td class="">
+                                    <button class="btn btn-primary view-report-btn" data-pdf-content="<?= base64_encode($row['pdf_content']) ?>">View Report</button>
+                                </td>
+                            </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-    // Fetch reports for the specified user from the database
-    $query = $conn->prepare("SELECT * FROM `user_reports` WHERE `user_id` = ? AND `user_name` = ?");
-    $query->bind_param("is", $userID, $userName);
-    $query->execute();
-    $result = $query->get_result();
+<!-- Modal to display the report content -->
+<div class="modal fade" id="viewReportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">View Report</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <embed id="pdfViewer" type="application/pdf" width="100%" height="600px" />
+            </div>
+        </div>
+    </div>
+</div>
 
-    // Check if there are reports
-    if ($result->num_rows > 0) {
-        // Fetch the reports and store them in an array
-        while ($row = $result->fetch_assoc()) {
-            $reports[] = $row;
-        }
-    }
+<script>
+    $(document).ready(function () {
+        $('#reportTable').DataTable({
+            columnDefs: [
+                { orderable: false, targets: 4 }
+            ],
+        });
 
-    // Close the database connection
-    $query->close();
+        // Bind click event for the "View Report" button
+        $('.view-report-btn').on('click', function () {
+            const pdfContent = $(this).data('pdf-content');
+            $('#pdfViewer').attr('src', 'data:application/pdf;base64,' + pdfContent);
+            $('#viewReportModal').modal('show');
+        });
+    });
+</script>
 
-    return $reports;
-}
-
-// Example usage:
-if (isset($_SESSION['user_id']) && isset($_SESSION['user_name'])) {
-    $userID = $_SESSION['user_id'];
-    $userName = $_SESSION['user_name'];
-
-    // Fetch user reports
-    $reports = fetch_user_reports($userID, $userName);
-
-    // Check if there are reports to display
-    if ($reports) {
-        // Loop through the reports and display them
-        foreach ($reports as $report) {
-            // Display report details, e.g., client_name, test_name, pdf_filename, created_at
-            echo "Client: " . $report['client_name'] . "<br>";
-            echo "Test: " . $report['test_name'] . "<br>";
-            echo "PDF Filename: " . $report['pdf_filename'] . "<br>";
-            echo "Created At: " . $report['created_at'] . "<br>";
-            echo "<hr>";
-        }
-    } else {
-        // No reports to display
-        echo "No reports found.";
-    }
-} else {
-    // User not logged in, redirect to login page or handle accordingly
-    header("Location: login.php");
-    exit();
-}
-
-// Close the database connection at the end of the script
-$conn->close();
-?>
+</body>
+</html>
