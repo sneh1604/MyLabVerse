@@ -35,14 +35,14 @@
                         </p>
                       </a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                       <a href="<?php echo base_url ?>admin/?page=appointments" class="nav-link nav-appointments">
                         <i class="nav-icon fas fa-calendar"></i>
                         <p>
                           Appointment List
                         </p>
                       </a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                       <a href="<?php echo base_url ?>admin/?page=clients" class="nav-link nav-clients">
                         <i class="nav-icon fas fa-users"></i>

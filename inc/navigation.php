@@ -36,7 +36,7 @@
                       </a>
                     </li>
                     
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                       <a href="<?php echo base_url ?>?page=appointments" class="nav-link nav-appointments">
                         <i class="nav-icon fas fa-calendar"></i>
                         <p>
@@ -51,12 +51,12 @@
                           Test Results
                         </p>
                       </a>
-                    </li>
+                    </li> -->
                     <li class="nav-item dropdown">
                     <a href="<?php echo base_url ?>?page=view_reports" class="nav-link nav-view-reports">
-                        <i class="nav-icon fas fa-eye"></i>
+                        <i class="nav-icon fas fa-file-medical-alt"></i>
                         <p>
-                            View Reports
+                          Reports
                         </p>
                     </a>
                 </li>

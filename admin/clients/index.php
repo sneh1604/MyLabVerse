@@ -54,7 +54,6 @@
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item delete_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-trash text-danger"></span> Delete</a>
 								<!-- Add the new dropdown item for uploading a report -->
-								<a class="dropdown-item upload_report" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-upload text-success"></span> Upload Report</a>
 							</div>
 						</td>
 						</tr>
@@ -102,8 +101,5 @@
 			}
 		})
 	}
-	$('.upload_report').click(function(){
-            uni_modal("Upload Report", "clients/upload_report.php?id=" + $(this).attr('data-id'), 'mid-large');
-        });
 	
 </script> 
