@@ -17,10 +17,12 @@
       background-repeat:no-repeat;
     }
     .login-title {
-  font-size: 28px;
-  color: #000; /* Change the font color to black */
-  font-family: 'Your Preferred Font', sans-serif;
+      text-shadow: 1px 1px 1px #000 !important;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
+    font-size: 4.5em !important;
+    color: black !important;
 }
+
     #login{
       flex-direction:column !important
     }
@@ -29,7 +31,6 @@
         width:150px;
         object-fit:scale-down;
         object-position:center center;
-        border-radius:100%;
     }
     #login .col-7,#login .col-5{
       width: 100% !important;
@@ -40,7 +41,7 @@
     <div class="col-7 h-100 d-flex align-items-center justify-content-center">
       <div class="w-100">
         <center><img src="<?= validate_image($_settings->info('logo')) ?>" alt="" id="logo-img"></center>
-        <h1 class="text-center py-5 login-title"><b><?php echo $_settings->info('name') ?> - Admin</b></h1>
+        <h1 class="text-center py-5 login-title"><b><?php echo $_settings->info('name') ?> </b></h1>
       </div>
       
     </div>

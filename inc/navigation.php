@@ -60,6 +60,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a href="<?php echo base_url ?>?page=graph" class="nav-link nav-view-reports">
+                        <i class="nav-icon fas fa-calendar"></i>
+                        <p>
+                          Graph
+                        </p>
+                    </a>
+                </li>
                   </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

@@ -266,12 +266,6 @@ nav.text-light .nav-link {
     color: var(--light)!important;
 }
 
-.login-title {
-    text-shadow: -3px 5px 9px #000 !important;
-    font-family: monospace !important;
-    font-size: 4.5em !important;
-    color: black !important;
-}
 
 .form-control.border-0.border-bottom {
     border-bottom: 1px solid !important;

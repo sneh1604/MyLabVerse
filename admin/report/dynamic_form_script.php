@@ -10,6 +10,9 @@ if (isset($_GET['test_id'])) {
         case '8': // Assuming test_id 1 corresponds to the Hemogram test
             generateHemogramForm();
             break;
+            case '9': // Assuming test_id 1 corresponds to the Hemogram test
+                generatelipidform();
+                break;
         // Add cases for other tests as needed
         // case '2': // Another test
         //    generateAnotherTestForm();
@@ -131,6 +134,57 @@ function generateHemogramForm()
         </div>
         <!-- Add more fields as needed -->
     </div>
+    <?php
+}
+
+function generatelipidform()
+{
+    ?>
+    <div class="form-group">
+        <label for="client_name">Client Name:</label>
+        <input type="text" class="form-control" id="client_name" name="client_name" placeholder="Enter Client Name">
+    </div>
+    
+    <div class="form-group">
+        <label for="serumCholesterol">Serum Cholesterol:</label>
+        <input type="text" class="form-control" id="serumCholesterol" name="serum_cholesterol" placeholder="Enter Serum Cholesterol">
+    </div>
+    
+    <div class="form-group">
+        <label for="serumTriglyceride">Serum Triglyceride:</label>
+        <input type="text" class="form-control" id="serumTriglyceride" name="serum_triglyceride" placeholder="Enter Serum Triglyceride">
+    </div>
+    
+    <div class="form-group">
+        <label for="hdlCholesterol">S. HDL Cholesterol:</label>
+        <input type="text" class="form-control" id="hdlCholesterol" name="hdl_cholesterol" placeholder="Enter S. HDL Cholesterol">
+    </div>
+    
+    <div class="form-group">
+        <label for="ldlCholesterol">S. LDL Cholesterol:</label>
+        <input type="text" class="form-control" id="ldlCholesterol" name="ldl_cholesterol" placeholder="Enter S. LDL Cholesterol">
+    </div>
+    
+    <div class="form-group">
+        <label for="vldlCholesterol">S. VLDL Cholesterol:</label>
+        <input type="text" class="form-control" id="vldlCholesterol" name="vldl_cholesterol" placeholder="Enter S. VLDL Cholesterol">
+    </div>
+    
+    <div class="form-group">
+        <label for="ldlHdlRatio">LDL/HDL Ratio:</label>
+        <input type="text" class="form-control" id="ldlHdlRatio" name="ldl_hdl_ratio" placeholder="Enter LDL/HDL Ratio">
+    </div>
+    
+    <div class="form-group">
+        <label for="totalCholesterolHdl">Total Cholesterol/HDL:</label>
+        <input type="text" class="form-control" id="totalCholesterolHdl" name="total_cholesterol_hdl" placeholder="Enter Total Cholesterol/HDL">
+    </div>
+    
+    <div class="form-group">
+        <label for="totalLipids">Total Lipids:</label>
+        <input type="text" class="form-control" id="totalLipids" name="total_lipids" placeholder="Enter Total Lipids">
+    </div>
+    <!-- Add more fields as needed -->
     <?php
 }
 ?>

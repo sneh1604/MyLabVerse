@@ -17,10 +17,10 @@
       background-repeat:no-repeat;
     }
     .login-title {
-  text-shadow: 2px 2px 6px #000;
-  font-size: 28px;
-  color: #000; /* Change the font color to black */
-  font-family: 'Your Preferred Font', sans-serif;
+      text-shadow: 1px 1px 1px #000 !important;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
+    font-size: 4.5em !important;
+    color: black !important;
 }
     #login{
       flex-direction:flex !important
@@ -30,7 +30,6 @@
         width:150px;
         object-fit:scale-down;
         object-position:center center;
-        border-radius:100%;
     }
     #login .col-7,#login .col-5{
       width: 100% !important;

@@ -42,7 +42,7 @@ if ($result->num_rows > 0) {
     $pdf->SetFont('Arial', 'B', 12); // Set font to bold
     $pdf->Cell(40, 10, 'Patient Name: ' . $data['client_name']);
     $pdf->Cell(80); // Move to the center
-    $pdf->Cell(40, 10, 'Today\'s Date: ' . date('d-m-Y'));
+    $pdf->Cell(40, 10, ' Date: ' . date('d-m-Y'));
     $pdf->Ln();
 
     // Draw an additional horizontal line
